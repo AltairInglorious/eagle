@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@common/*": ["packages/common/src/*"],
+			"@api/*": ["apps/api/src/*"],
+			"@worker/*": ["apps/worker/src/*"]
+		}
+	}
+}

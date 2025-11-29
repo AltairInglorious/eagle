@@ -1,0 +1,20 @@
+{
+	"name": "worker",
+	"module": "src/index.ts",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"dev": "bun run --watch src/index.ts",
+		"start": "bun run src/index.ts",
+		"build": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile dist/eagle-worker src/index.ts"
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"systeminformation": "^5.27.11"
+	}
+}

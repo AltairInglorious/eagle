@@ -1,0 +1,11 @@
+[
+	{
+		"name": "localhost",
+		"token": "example-token",
+		"limits": {
+			"ram": 209715200,
+			"disk": 1073741824,
+			"cpu": 80
+		}
+	}
+]

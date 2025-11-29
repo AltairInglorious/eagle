@@ -1,0 +1,11 @@
+{
+	"name": "eagle",
+	"private": true,
+	"workspaces": {
+		"packages": [
+			"apps/**",
+			"packages/**"
+		]
+	},
+	"packageManager": "^bun@1.2.0"
+}
