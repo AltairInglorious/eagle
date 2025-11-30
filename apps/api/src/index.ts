@@ -64,19 +64,19 @@ async function handleReport(server: ServerConfig, report: Report) {
 	console.log(`Got report for ${server.name}:`, report);
 	if (report.ram < server.limits.ram) {
 		notify(
-			`Server ${server.name} has exced RAM limit [${server.limits.ram / MB}M]: ${report.ram / MB}M`,
+			`Server ${server.name} has exced RAM limit [${server.limits.ram / MB}M]: ${Math.round(report.ram / MB)}M`,
 		);
 	}
 	if (report.cpu > server.limits.cpu) {
 		notify(
-			`Server ${server.name} has exced CPU limit [${server.limits.cpu}%]: ${report.cpu}%`,
+			`Server ${server.name} has exced CPU limit [${server.limits.cpu}%]: ${Math.round(report.cpu)}%`,
 		);
 	}
 	if (!report.disk) {
 		notify(`Server ${server.name} has not report about free disk space`);
 	} else if (report.disk < server.limits.disk) {
 		notify(
-			`Server ${server.name} has exced disk space limit [${server.limits.disk / GB}G]: ${report.disk / GB}G`,
+			`Server ${server.name} has exced disk space limit [${server.limits.disk / GB}G]: ${Math.round(report.disk / GB)}G`,
 		);
 	}
 }
