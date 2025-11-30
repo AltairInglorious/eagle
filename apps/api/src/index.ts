@@ -1,7 +1,12 @@
-import { getEnvNumber } from "@common/env";
+import { getEnv, getEnvNumber } from "@common/env";
+import { autoRetry } from "@grammyjs/auto-retry";
+import { Bot } from "grammy";
 import z from "zod";
 
 const port = Number(getEnvNumber("PORT", 3000, { min: 1 }));
+const bot = new Bot(getEnv("TG_BOT_TOKEN"));
+bot.api.config.use(autoRetry());
+const logChatID = getEnv("TG_CHAT");
 
 const KB = 1024;
 const MB = KB ** 2;
@@ -50,22 +55,27 @@ for (const s of configData.data) {
 	}
 }
 
+async function notify(msg: string) {
+	console.warn(msg);
+	await bot.api.sendMessage(logChatID, msg);
+}
+
 async function handleReport(server: ServerConfig, report: Report) {
 	console.log(`Got report for ${server.name}:`, report);
 	if (report.ram < server.limits.ram) {
-		console.warn(
+		notify(
 			`Server ${server.name} has exced RAM limit [${server.limits.ram / MB}M]: ${report.ram / MB}M`,
 		);
 	}
 	if (report.cpu > server.limits.cpu) {
-		console.warn(
+		notify(
 			`Server ${server.name} has exced CPU limit [${server.limits.cpu}%]: ${report.cpu}%`,
 		);
 	}
 	if (!report.disk) {
-		console.warn(`Server ${server.name} has not report about free disk space`);
+		notify(`Server ${server.name} has not report about free disk space`);
 	} else if (report.disk < server.limits.disk) {
-		console.warn(
+		notify(
 			`Server ${server.name} has exced disk space limit [${server.limits.disk / GB}G]: ${report.disk / GB}G`,
 		);
 	}

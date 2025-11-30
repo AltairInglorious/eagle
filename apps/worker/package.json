@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "bun run --watch src/index.ts",
 		"start": "bun run src/index.ts",
-		"build": "bun build --compile --minify --target bun --outfile dist/eagle-worker src/index.ts"
+		"build": "bun build --minify --target bun --outfile dist/eagle-worker.js src/index.ts"
 	},
 	"devDependencies": {
 		"@types/bun": "latest"
